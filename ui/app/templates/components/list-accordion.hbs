@@ -1,0 +1,10 @@
+{{#each decoratedSource as |item|}}
+  {{yield (hash
+    head=(component "list-accordion/accordion-head"
+      isOpen=item.isOpen
+      onOpen=(action "open" item)
+      onClose=(action "close" item))
+    body=(component "list-accordion/accordion-body" isOpen=item.isOpen)
+    item=item.item
+  )}}
+{{/each}}
