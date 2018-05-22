@@ -110,6 +110,16 @@ unless configured otherwise:
 1.2.3.4 => 1.2.3.4:4648
 ```
 
+#### Via the go-discover interface
+
+As of Nomad 0.9, `retry-join` accepts a unified interface using the
+[go-discover](https://github.com/hashicorp/go-discover) library for doing
+automated cluster joining using cloud metadata.
+
+```
+"provider=aws tag_key=..." => 1.2.3.4:4648
+```
+
 #### Via Domains or DNS
 
 It is possible to address another Nomad server using its DNS address. This is
