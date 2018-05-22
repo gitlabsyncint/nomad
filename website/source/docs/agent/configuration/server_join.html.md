@@ -26,6 +26,7 @@ server_join {
   retry_max = 3
   retry_interval = "15s"
 }
+```
 
 ## `server_join` Parameters
 
@@ -43,12 +44,12 @@ server_join {
 Address format includes both using IP addresses as well as an interface to the
 [go-discover](https://github.com/hashicorp/go-discover) library for doing
 automated cluster joining using cloud metadata.
+See Cloud Auto Join`<code>([CloudAutoJoin][cloud_auto_join]: nil)</code>.
 ```
 server_join {
   retry_join = [ "1.1.1.1", "2.2.2.2" ]
 }
 ```
-
 Using the `go-discover` interface, this can be defined both in a client or
 server configuration as well as provided as a command-line argument.
 ```
@@ -74,3 +75,52 @@ about expected server address formats.
   will result in a configuration parse error if included in a client
   configuration.
 
+### Server Address Format
+
+This section describes the acceptable syntax and format for describing the
+location of a Nomad server. There are many ways to reference a Nomad server,
+including directly by IP address and resolving through DNS.
+
+#### Directly via IP Address
+
+It is possible to address another Nomad server using its IP address. This is
+done in the `ip:port` format, such as:
+
+```
+1.2.3.4:5678
+```
+
+If the port option is omitted, it defaults to the Serf port, which is 4648
+unless configured otherwise:
+
+```
+1.2.3.4 => 1.2.3.4:4648
+```
+
+#### Via Domains or DNS
+
+It is possible to address another Nomad server using its DNS address. This is
+done in the `address:port` format, such as:
+
+```
+nomad-01.company.local:5678
+```
+
+If the port option is omitted, it defaults to the Serf port, which is 4648
+unless configured otherwise:
+
+```
+nomad-01.company.local => nomad-01.company.local:4648
+```
+
+#### Via the go-discover interface
+
+As of Nomad 0.9, `retry-join` accepts a unified interface using the
+[go-discover](https://github.com/hashicorp/go-discover) library for doing
+automated cluster joining using cloud metadata.
+
+```
+"provider=aws tag_key=..." => 1.2.3.4:4648
+
+See <code>([CloudAutoJoin][cloud_auto_join]: nil)</code> for further information.
+```

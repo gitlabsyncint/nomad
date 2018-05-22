@@ -54,7 +54,6 @@ server {
 - `enabled` `(bool: false)` - Specifies if this agent should run in server mode.
   All other server options depend on this value being set.
 
--
 - `retry_join` `(array<string>: [])` - Specifies a list of server
   addresses to retry joining if the first attempt fails. This is similar to
   [`start_join`](#start_join), but only invokes if the initial join attempt
@@ -65,6 +64,13 @@ server {
   both options**. See the [server address format](#server-address-format)
   section for more information on the format of the string. This field is
   deprecated in favor of [server_join](#server_join).
+
+  Note that `retry_join` can be defined for only servers as a command-line
+  flag (clients are only able to define via the client configuration).
+
+ ```sh
+ $ nomad agent -retry-join "127.0.0.1:4648"
+ ```
 
 - `retry_interval` `(string: "30s")` - Specifies the time to wait between retry
   join attempts. This field is  deprecated in favor of [server_join](#server_join).
