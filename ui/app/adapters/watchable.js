@@ -51,8 +51,8 @@ export default ApplicationAdapter.extend({
     return ajaxOptions;
   },
 
-  xhrKey(url /* method, options */) {
-    return url;
+  xhrKey(url, method /* options */) {
+    return `${method} ${url}`;
   },
 
   findAll(store, type, sinceToken, snapshotRecordArray, additionalParams = {}) {
